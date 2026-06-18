@@ -2,6 +2,8 @@
 // pour garantir que les images restent TOUJOURS visibles, quel que soit le
 // navigateur — pas de dépendance à une détection de défilement.
 export default function Gallery({ titre, sousTitre, photos = [], colonnes = 3, alt = false, anim = 'none' }) {
+  // Préfixe le chemin avec la base du site (racine en dev, /declaration-amour/ en ligne).
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '')
   return (
     <section className={`section galerie galerie--${anim} ${alt ? 'section-alt' : ''}`}>
       <h2 className="section-title">{titre}</h2>
@@ -15,7 +17,7 @@ export default function Gallery({ titre, sousTitre, photos = [], colonnes = 3, a
             style={{ animationDelay: `${(i % colonnes) * 0.1}s` }}
           >
             <div className="galerie-media">
-              <img src={p.src} alt={p.legende || titre} loading="lazy" />
+              <img src={base + p.src} alt={p.legende || titre} loading="lazy" />
             </div>
             {p.legende && <figcaption>{p.legende}</figcaption>}
           </figure>
